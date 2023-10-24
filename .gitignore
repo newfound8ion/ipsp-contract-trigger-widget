@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+#GPT
+combined_output.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
