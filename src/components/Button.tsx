@@ -8,25 +8,28 @@ interface Props {
   setActivating: (activating: string) => void;
   balance: number;
   setBalance: (balance: number) => void;
+  selectedFunctionId: number;
 }
 
 export default function Button({
   activating,
   setActivating,
   setBalance,
+  selectedFunctionId,
 }: Props) {
   const handleClick = async () => {
     try {
       const guildContractWithSigner = guildAFContract.connect(signer);
       await guildContractWithSigner.request();
 
-      // Waiting for 30 seconds after the request before calling activate
+      // Waiting for 3 seconds after the request before calling activate
       setTimeout(async () => {
         try {
           const encoderContractWithSigner = encoderContract.connect(signer);
 
           // Activating with parameter 0
-          const tx = await encoderContractWithSigner.activate(0);
+          const tx =
+            await encoderContractWithSigner.activate(selectedFunctionId);
 
           // Waiting for the transaction to be mined
           await tx.wait();
@@ -36,7 +39,7 @@ export default function Button({
         } catch (e) {
           console.log("Error during activation: ", e);
         }
-      }, 3000); // 30000ms = 30s
+      }, 3000); // 3000ms = 3s
     } catch (e) {
       console.log("Error during request: ", e);
     }

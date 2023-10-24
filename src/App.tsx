@@ -1,41 +1,45 @@
-import { useState, useEffect } from "react";
-import Button from "./components/Button";
-import { guildAFContract } from "./contracts/guildAFContract/contract";
+import { useEffect, useState } from "react";
 import { getSigner } from "./contracts/ethersProvider";
+import { Panel } from "./components/Panel";
+import Button from "./components/Button";
+import Dropdown from "./components/Dropdown";
 
 export default function App() {
   const [activating, setActivating] = useState("unactivated");
   const [balance, setBalance] = useState(0);
+  const [selectedFunctionId, setSelectedFunctionId] = useState(0);
 
   useEffect(() => {
     getSigner();
   }, []);
 
+  const activationFunctions = [
+    { id: 0, name: "Function A", description: "test", reward: 10 },
+    { id: 1, name: "Function B", description: "test2", reward: 20 },
+    {
+      id: 2,
+      name: "Guild Gitcoin Proof-of-Humanity",
+      description:
+        "Condition: Have a Gitcoin Passport with 25+ in the Unique Humanity Score.",
+
+      reward: 100,
+    },
+  ];
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="relative flex flex-col items-center justify-between pl-2 pr-2 pt-8 pb-8 border border-black w-64 h-96">
-        <div
-          className={activating === "unactivated" ? "opacity-100" : "opacity-0"}
-        >
-          <p className="text-sm text-center">
-            Guild Gitcoin Proof-of-Humanity
-            <br />
-            <br />
-            Condition: Have a Gitcoin Passport with 25+ in the Unique Humanity
-            Score.
-            <br />
-            <br />
-            Reward: 100 Verification WATT
-          </p>
-        </div>
-        {activating === "activating" && (
-          <img
-            src="./assets/loading.png"
-            alt="Loading..."
-            className="absolute top-16 w-20 h-20"
-          />
-        )}
-        {activating === "activated" && <div>activated ${balance} WATTS</div>}
+        <Panel
+          activating={activating}
+          activationFunctions={activationFunctions}
+          selectedFunctionId={selectedFunctionId}
+          balance={balance}
+        />
+        <Dropdown
+          selectedFunctionId={selectedFunctionId}
+          setSelectedFunctionId={setSelectedFunctionId}
+          activationFunctions={activationFunctions}
+        />
         <Button
           activating={activating}
           setActivating={setActivating}
