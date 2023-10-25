@@ -26,7 +26,7 @@ function Dropdown({
     <select
       onChange={handleChange}
       value={selectedFunctionId}
-      className={`py-2 px-4 text-black rounded-full w-40 border border-black ${
+      className={`py-2 px-4 text-sm text-black rounded-full w-40 border border-black ${
         !selectedFunctionId ? "bg-white" : "bg-gray-200"
       }`}
     >
@@ -35,7 +35,7 @@ function Dropdown({
       </option>
       {activationFunctions.map((func) => (
         <option key={func.id} value={func.id}>
-          {func.name}
+          {func.context}
         </option>
       ))}
     </select>

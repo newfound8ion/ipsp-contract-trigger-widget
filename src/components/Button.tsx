@@ -1,13 +1,22 @@
-import { guildAFContract } from "../contracts/guildAFContract/contract";
-import { encoderContract } from "../contracts/EncoderContract/contract";
-import { wattsContract } from "../contracts/wattsContract/contract";
+import {
+  GuildGitcoinPassportContract,
+  guildAFContract,
+} from "../contracts/guildAFContract/contract";
+import {
+  EncoderContract,
+  encoderContract,
+} from "../contracts/EncoderContract/contract";
+import {
+  WattsContract,
+  wattsContract,
+} from "../contracts/wattsContract/contract";
 import { signer } from "../contracts/ethersProvider";
 
 interface Props {
   activating: string;
   setActivating: (activating: string) => void;
-  balance: number;
-  setBalance: (balance: number) => void;
+  balance: string;
+  setBalance: (balance: string) => void;
   selectedFunctionId: number;
 }
 
@@ -19,13 +28,17 @@ export default function Button({
 }: Props) {
   const handleClick = async () => {
     try {
-      const guildContractWithSigner = guildAFContract.connect(signer);
+      const guildContractWithSigner = guildAFContract.connect(
+        signer,
+      ) as GuildGitcoinPassportContract;
       await guildContractWithSigner.request();
 
       // Waiting for 3 seconds after the request before calling activate
       setTimeout(async () => {
         try {
-          const encoderContractWithSigner = encoderContract.connect(signer);
+          const encoderContractWithSigner = encoderContract.connect(
+            signer,
+          ) as EncoderContract;
 
           // Activating with parameter 0
           const tx =
@@ -48,7 +61,9 @@ export default function Button({
 
   // Function to check the balance of Watts
   const checkBalance = async () => {
-    const wattsContractWithSigner = wattsContract.connect(signer);
+    const wattsContractWithSigner = wattsContract.connect(
+      signer,
+    ) as WattsContract;
     try {
       const address = await signer.getAddress();
       const balance = await wattsContractWithSigner.balanceOfWatts(address);

@@ -115,6 +115,11 @@ export const contractABI: any[] = [
         type: "string",
       },
       {
+        internalType: "string",
+        name: "description",
+        type: "string",
+      },
+      {
         internalType: "address",
         name: "addrss",
         type: "address",
@@ -160,6 +165,71 @@ export const contractABI: any[] = [
         internalType: "bool",
         name: "",
         type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getApprovedActivationFunctions",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "address",
+            name: "issuer",
+            type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "approved",
+            type: "bool",
+          },
+          {
+            internalType: "enum NewcoinEncoder.WattType",
+            name: "wattType",
+            type: "uint8",
+          },
+          {
+            internalType: "uint256",
+            name: "multiplier",
+            type: "uint256",
+          },
+          {
+            internalType: "bytes32",
+            name: "contextId",
+            type: "bytes32",
+          },
+          {
+            internalType: "string",
+            name: "context",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "description",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "addrss",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "weightInWatt",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "isAsync",
+            type: "bool",
+          },
+        ],
+        internalType: "struct NewcoinEncoder.ActivationFunction[]",
+        name: "",
+        type: "tuple[]",
       },
     ],
     stateMutability: "view",
@@ -229,6 +299,11 @@ export const contractABI: any[] = [
       {
         internalType: "string",
         name: "_context",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_description",
         type: "string",
       },
       {
