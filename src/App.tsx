@@ -22,6 +22,7 @@ export default function App() {
     ) as EncoderContract;
     const proxyObject =
       await encoderContractWithSigner.getApprovedActivationFunctions();
+    console.log(proxyObject);
     setActivationFunctions(proxyObject as ActivationFunction[]);
   };
 
@@ -35,11 +36,13 @@ export default function App() {
       <div className="relative flex flex-col items-center justify-between pl-2 pr-2 pt-8 pb-8 border border-black w-64 h-96">
         {activationFunctions.length > 0 && (
           <>
-            <Dropdown
-              selectedFunctionId={selectedFunctionId}
-              setSelectedFunctionId={setSelectedFunctionId}
-              activationFunctions={activationFunctions}
-            />
+            {activating != "activating" && (
+              <Dropdown
+                selectedFunctionId={selectedFunctionId}
+                setSelectedFunctionId={setSelectedFunctionId}
+                activationFunctions={activationFunctions}
+              />
+            )}
             <Panel
               activating={activating}
               activationFunctions={activationFunctions}

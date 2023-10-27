@@ -26,15 +26,15 @@ function Dropdown({
     <select
       onChange={handleChange}
       value={selectedFunctionId}
-      className={`py-2 px-4 text-sm text-black rounded-full w-40 border border-black ${
+      className={`py-2 px-4 text-xs text-black rounded-full w-40 border border-black ${
         !selectedFunctionId ? "bg-white" : "bg-gray-200"
       }`}
     >
       <option value="" disabled>
         Select an activation function
       </option>
-      {activationFunctions.map((func) => (
-        <option key={func.id} value={func.id}>
+      {activationFunctions.map((func, index) => (
+        <option key={func.id} value={index}>
           {func.context}
         </option>
       ))}

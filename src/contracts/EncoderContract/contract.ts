@@ -3,7 +3,7 @@ import { provider, signer } from "../ethersProvider";
 import { contractABI } from "./abi";
 import { ActivationFunction } from "../../components/Panel";
 
-const contractAddress = "0x8A37821a9E768D73Adafa3F15D38cc973999979c";
+const contractAddress = "0x84387e3ad062D683BFc7eD2Eeaf2C30B27Bd3d05";
 
 export interface EncoderContract extends BaseContract {
   activate(id: number): Promise<TransactionResponse>;

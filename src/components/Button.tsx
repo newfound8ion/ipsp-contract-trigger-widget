@@ -52,7 +52,7 @@ export default function Button({
         } catch (e) {
           console.log("Error during activation: ", e);
         }
-      }, 3000); // 3000ms = 3s
+      }, 60000); // 60000ms = 60s
     } catch (e) {
       console.log("Error during request: ", e);
     }

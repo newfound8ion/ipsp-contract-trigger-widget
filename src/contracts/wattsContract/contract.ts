@@ -1,9 +1,8 @@
 import { ethers, BaseContract, BigNumberish } from "ethers";
 import { provider, signer } from "../ethersProvider";
 import { contractABI } from "./abi";
-import {} from "ethers";
 
-const contractAddress = "0xDA2083ec00Fd29A7Df46023f1eb2479Cb4EbC22C";
+const contractAddress = "0xf272Fe62eEdCBCf7221D8451a68a85c3AF4fAcFe";
 
 export interface WattsContract extends BaseContract {
   request(): Promise<void>;

@@ -19,6 +19,7 @@ export function Panel({
   selectedFunctionId,
   balance,
 }: Props) {
+  console.log(activationFunctions, selectedFunctionId);
   return (
     <>
       <div
