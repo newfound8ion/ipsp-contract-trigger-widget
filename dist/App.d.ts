@@ -19,6 +19,10 @@ export declare const useActivationFunctions: (contractAddress?: string, autoconn
     button: import("react/jsx-runtime").JSX.Element;
     panel: import("react/jsx-runtime").JSX.Element;
     dropDown: import("react/jsx-runtime").JSX.Element;
+    connect: () => void;
+    isConnecting: boolean;
+    isConnected: boolean;
+    signer: void | import("ethers").JsonRpcSigner | undefined;
 };
 export default function App(): import("react/jsx-runtime").JSX.Element;
 export declare const ActivationByContractAddress: typeof App;

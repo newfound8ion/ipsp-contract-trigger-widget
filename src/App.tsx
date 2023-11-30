@@ -20,6 +20,9 @@ export const useActivationFunctions = (contractAddress?: string, autoconnect?: b
   //   ActivationFunction[]
   // >([]);
   const [doConnect, setDoConnect] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+
 
   const connect = () => setDoConnect(true);
 
@@ -27,7 +30,12 @@ export const useActivationFunctions = (contractAddress?: string, autoconnect?: b
     if(!(doConnect || autoconnect))
       return Promise.resolve();
 
-    return getSigner();
+    setIsConnecting(true);
+    const si = await getSigner();
+    setIsConnecting(false);
+    setIsConnected(!!signer)
+    
+    return si;
   }, [doConnect, autoconnect]);
 
   const _activationFunctions = useAsyncMemo(async () => {
@@ -64,8 +72,7 @@ export const useActivationFunctions = (contractAddress?: string, autoconnect?: b
     setActivating,
     balance,
     setBalance,
-    selectedFunctionId,
-    connect
+    selectedFunctionId
   };
 
   const button = <Button
@@ -91,7 +98,12 @@ export const useActivationFunctions = (contractAddress?: string, autoconnect?: b
 
     button,
     panel,
-    dropDown
+    dropDown,
+
+    connect,
+    isConnecting,
+    isConnected,
+    signer
   };
 }
 
