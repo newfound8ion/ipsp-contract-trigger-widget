@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getSigner } from "./contracts/ethersProvider";
 import { ActivationFunction, Panel } from "./components/Panel";
 import Button, { useButton } from "./components/Button.tsx";
@@ -11,7 +11,7 @@ import { useAsyncMemo } from "./utils/useAsyncMemo";
 
 export { useButton };
 
-export const useActivationFunctions = (contractAddress?: string) => {
+export const useActivationFunctions = (contractAddress?: string, autoconnect?: boolean) => {
   const [activating, setActivating] = useState("unactivated");
   const [balance, setBalance] = useState("0");
   const [selectedFunctionId, setSelectedFunctionId] = useState(0);
@@ -19,8 +19,16 @@ export const useActivationFunctions = (contractAddress?: string) => {
   // const [activationFunctions, setActivationFunctions] = useState<
   //   ActivationFunction[]
   // >([]);
+  const [doConnect, setDoConnect] = useState(false);
 
-  const signer = useAsyncMemo(getSigner, []);
+  const connect = () => setDoConnect(true);
+
+  const signer = useAsyncMemo(async () => {
+    if(!(doConnect || autoconnect))
+      return Promise.resolve();
+
+    return getSigner();
+  }, [doConnect, autoconnect]);
 
   const _activationFunctions = useAsyncMemo(async () => {
     if (!signer)
@@ -56,7 +64,8 @@ export const useActivationFunctions = (contractAddress?: string) => {
     setActivating,
     balance,
     setBalance,
-    selectedFunctionId
+    selectedFunctionId,
+    connect
   };
 
   const button = <Button

@@ -2,7 +2,7 @@
 import { ActivationFunction } from "./components/Panel";
 import { useButton } from "./components/Button.tsx";
 export { useButton };
-export declare const useActivationFunctions: (contractAddress?: string) => {
+export declare const useActivationFunctions: (contractAddress?: string, autoconnect?: boolean) => {
     activate: (args?: {
         selectedFunctionId: number;
         contractType: "guildAFContract" | "encoderContract" | "wattsContract";
