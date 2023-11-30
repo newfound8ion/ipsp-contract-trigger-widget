@@ -10,6 +10,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/App.tsx'),
       name: "af-widget",
     },
+    sourcemap: true,
     rollupOptions: {
       external: ['react'],
       output: {

@@ -14134,3 +14134,4 @@ export {
   Xg as ActivationByContractAddress,
   zg as default
 };
+//# sourceMappingURL=af-widget.js.map
