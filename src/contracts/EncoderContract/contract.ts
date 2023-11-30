@@ -16,4 +16,10 @@ export const encoderContract = new ethers.Contract(
   provider,
 );
 
+export const encoderContractFactory = (address: string) => new ethers.Contract(
+  address || contractAddress,
+  contractABI,
+  provider,
+);
+
 // encoderContract.connect(signer);

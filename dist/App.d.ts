@@ -1,6 +1,12 @@
 /// <reference types="react" />
 import { ActivationFunction } from "./components/Panel";
-export declare const useActivationFunctions: (contractAddress: string) => {
+export declare const useActivationFunctions: (contractAddress?: string) => {
+    activate: (args?: {
+        selectedFunctionId: number;
+        contractType: "guildAFContract" | "encoderContract" | "wattsContract";
+        contractAddress: string;
+        params: any[];
+    } | undefined) => Promise<void>;
     activationFunctions: ActivationFunction[];
     setActivating: import("react").Dispatch<import("react").SetStateAction<string>>;
     activating: string;

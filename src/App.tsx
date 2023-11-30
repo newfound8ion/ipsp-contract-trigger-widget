@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getSigner } from "./contracts/ethersProvider";
 import { ActivationFunction, Panel } from "./components/Panel";
-import Button from "./components/Button";
+import Button, { useButton } from "./components/Button";
 import Dropdown from "./components/Dropdown";
 import {
   EncoderContract,
@@ -9,7 +9,7 @@ import {
 } from "./contracts/EncoderContract/contract";
 import { useAsyncMemo } from "./utils/useAsyncMemo";
 
-export const useActivationFunctions = (contractAddress: string) => {
+export const useActivationFunctions = (contractAddress?: string) => {
   const [activating, setActivating] = useState("unactivated");
   const [balance, setBalance] = useState("0");
   const [selectedFunctionId, setSelectedFunctionId] = useState(0);
@@ -49,15 +49,27 @@ export const useActivationFunctions = (contractAddress: string) => {
     balance={balance}
   />
 
+  const buttonParams = {
+    activating,
+    setActivating,
+    balance,
+    setBalance,
+    selectedFunctionId
+  };
+
   const button = <Button
-    activating={activating}
-    setActivating={setActivating}
-    balance={balance}
-    setBalance={setBalance}
-    selectedFunctionId={selectedFunctionId}
+    {...buttonParams}
+  // activating={activating}
+  // setActivating={setActivating}
+  // balance={balance}
+  // setBalance={setBalance}
+  // selectedFunctionId={selectedFunctionId}
   />
 
+  const { activate } = useButton(buttonParams);
+
   return {
+    activate,
     activationFunctions,
     setActivating,
     activating,
@@ -85,7 +97,7 @@ export default function App() {
     button,
     panel,
     dropDown
-  } = useActivationFunctions();
+  } = useActivationFunctions("0x84387e3ad062D683BFc7eD2Eeaf2C30B27Bd3d05");
 
   return (
     <div className="min-h-screen flex items-center justify-center">

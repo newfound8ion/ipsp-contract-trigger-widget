@@ -15,5 +15,12 @@ export const wattsContract = new ethers.Contract(
   provider,
 );
 
+
+export const wattsContractFactory = (address: string) => new ethers.Contract(
+  address || contractAddress,
+  contractABI,
+  provider,
+);
+
 // getSigner().then((signer) => wattsContract.connect(signer));
 

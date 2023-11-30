@@ -4,3 +4,4 @@ export interface WattsContract extends BaseContract {
     balanceOfWatts(address: string): Promise<BigNumberish>;
 }
 export declare const wattsContract: ethers.Contract;
+export declare const wattsContractFactory: (address: string) => ethers.Contract;

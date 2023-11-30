@@ -15,6 +15,13 @@ export const guildAFContract = new ethers.Contract(
   provider,
 );
 
+
+export const guildAFContractFactory = (address: string) => new ethers.Contract(
+  address || contractAddress,
+  contractABI,
+  provider,
+);
+
 // getSigner().then((signer) => guildAFContract.connect(signer));
 
 
