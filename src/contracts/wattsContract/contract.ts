@@ -1,5 +1,5 @@
 import { ethers, BaseContract, BigNumberish } from "ethers";
-import { provider, signer } from "../ethersProvider";
+import { getSigner, provider } from "../ethersProvider";
 import { contractABI } from "./abi";
 
 const contractAddress = "0xf272Fe62eEdCBCf7221D8451a68a85c3AF4fAcFe";
@@ -15,4 +15,5 @@ export const wattsContract = new ethers.Contract(
   provider,
 );
 
-wattsContract.connect(signer);
+// getSigner().then((signer) => wattsContract.connect(signer));
+

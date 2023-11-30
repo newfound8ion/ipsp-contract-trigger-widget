@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { getSigner, signer } from "./contracts/ethersProvider";
+import { useCallback, useEffect, useState } from "react";
+import { getSigner } from "./contracts/ethersProvider";
 import { ActivationFunction, Panel } from "./components/Panel";
 import Button from "./components/Button";
 import Dropdown from "./components/Dropdown";
@@ -7,29 +7,32 @@ import {
   EncoderContract,
   encoderContract,
 } from "./contracts/EncoderContract/contract";
+import { useAsyncMemo } from "./utils/useAsyncMemo";
 
 export default function App() {
   const [activating, setActivating] = useState("unactivated");
   const [balance, setBalance] = useState("0");
   const [selectedFunctionId, setSelectedFunctionId] = useState(0);
-  const [activationFunctions, setActivationFunctions] = useState<
-    ActivationFunction[]
-  >([]);
+  // const [activationFunctions, setActivationFunctions] = useState<
+  //   ActivationFunction[]
+  // >([]);
+  const signer = useAsyncMemo(getSigner, []);
 
-  const getActivationFunctions = async () => {
+  const _activationFunctions = useAsyncMemo(async () => {
+    if(!signer)
+      return;
+    
     const encoderContractWithSigner = encoderContract.connect(
       signer,
     ) as EncoderContract;
     const proxyObject =
       await encoderContractWithSigner.getApprovedActivationFunctions();
     console.log(proxyObject);
-    setActivationFunctions(proxyObject as ActivationFunction[]);
-  };
-
-  useEffect(() => {
-    getSigner();
-    getActivationFunctions();
-  }, []);
+    return proxyObject as ActivationFunction[];
+    // setActivationFunctions(proxyObject as ActivationFunction[]);
+  }, [signer], [] as ActivationFunction[]);
+  
+  const activationFunctions = _activationFunctions || [];
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -62,3 +65,5 @@ export default function App() {
     </div>
   );
 }
+
+export const ActivationByContractAddress = App;

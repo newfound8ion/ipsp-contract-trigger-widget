@@ -1,5 +1,5 @@
 import { ethers, BaseContract, TransactionResponse } from "ethers";
-import { provider, signer } from "../ethersProvider";
+import { provider } from "../ethersProvider";
 import { contractABI } from "./abi";
 import { ActivationFunction } from "../../components/Panel";
 
@@ -16,4 +16,4 @@ export const encoderContract = new ethers.Contract(
   provider,
 );
 
-encoderContract.connect(signer);
+// encoderContract.connect(signer);

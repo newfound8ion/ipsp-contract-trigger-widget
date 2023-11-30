@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { provider, signer } from "../ethersProvider";
+import { getSigner, provider } from "../ethersProvider";
 import { contractABI } from "./abi";
 import { BaseContract } from "ethers";
 
@@ -15,4 +15,6 @@ export const guildAFContract = new ethers.Contract(
   provider,
 );
 
-guildAFContract.connect(signer);
+// getSigner().then((signer) => guildAFContract.connect(signer));
+
+

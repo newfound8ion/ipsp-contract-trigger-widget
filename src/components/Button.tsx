@@ -10,7 +10,11 @@ import {
   WattsContract,
   wattsContract,
 } from "../contracts/wattsContract/contract";
-import { signer } from "../contracts/ethersProvider";
+import { useEffect, useState } from "react";
+import { getSigner } from "../contracts/ethersProvider";
+import useAsyncState from "../utils/useAsyncState";
+import { JsonRpcSigner } from "ethers/providers";
+import { useAsyncMemo } from "../utils/useAsyncMemo";
 
 interface Props {
   activating: string;
@@ -26,8 +30,13 @@ export default function Button({
   setBalance,
   selectedFunctionId,
 }: Props) {
+  const signer = useAsyncMemo(getSigner, []);
+  if(!signer)
+    return <>Wait...</>;
+    
   const handleClick = async () => {
     try {
+      getSigner
       const guildContractWithSigner = guildAFContract.connect(
         signer,
       ) as GuildGitcoinPassportContract;
@@ -78,9 +87,8 @@ export default function Button({
   return (
     <button
       onClick={() => handleClick()}
-      className={`py-2 px-4 text-white rounded-full w-40 ${
-        activating === "activating" ? "bg-gray-400" : "bg-black"
-      }`}
+      className={`py-2 px-4 text-white rounded-full w-40 ${activating === "activating" ? "bg-gray-400" : "bg-black"
+        }`}
       disabled={activating === "activating"}
     >
       {activating === "activating" ? "Activating" : "Activate"}
