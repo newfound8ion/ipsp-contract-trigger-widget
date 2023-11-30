@@ -9,13 +9,15 @@ import {
 } from "./contracts/EncoderContract/contract";
 import { useAsyncMemo } from "./utils/useAsyncMemo";
 
-const useActivationFunctions = () => {
+export const useActivationFunctions = (contractAddress: string) => {
   const [activating, setActivating] = useState("unactivated");
   const [balance, setBalance] = useState("0");
   const [selectedFunctionId, setSelectedFunctionId] = useState(0);
+
   // const [activationFunctions, setActivationFunctions] = useState<
   //   ActivationFunction[]
   // >([]);
+
   const signer = useAsyncMemo(getSigner, []);
 
   const _activationFunctions = useAsyncMemo(async () => {
@@ -30,7 +32,7 @@ const useActivationFunctions = () => {
     console.log(proxyObject);
     return proxyObject as ActivationFunction[];
     // setActivationFunctions(proxyObject as ActivationFunction[]);
-  }, [signer], [] as ActivationFunction[]);
+  }, [signer, contractAddress], [] as ActivationFunction[]);
 
   const activationFunctions = _activationFunctions || [];
 
