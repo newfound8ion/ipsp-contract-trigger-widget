@@ -22,5 +22,5 @@ export async function getSigner() {
     res(signer);
   });
 
-  return signer;
+  return signerPromise;
 }
