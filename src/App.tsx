@@ -9,7 +9,7 @@ import {
 } from "./contracts/EncoderContract/contract";
 import { useAsyncMemo } from "./utils/useAsyncMemo";
 
-export default function App() {
+const useActivationFunctions = () => {
   const [activating, setActivating] = useState("unactivated");
   const [balance, setBalance] = useState("0");
   const [selectedFunctionId, setSelectedFunctionId] = useState(0);
@@ -19,9 +19,9 @@ export default function App() {
   const signer = useAsyncMemo(getSigner, []);
 
   const _activationFunctions = useAsyncMemo(async () => {
-    if(!signer)
+    if (!signer)
       return;
-    
+
     const encoderContractWithSigner = encoderContract.connect(
       signer,
     ) as EncoderContract;
@@ -31,15 +31,73 @@ export default function App() {
     return proxyObject as ActivationFunction[];
     // setActivationFunctions(proxyObject as ActivationFunction[]);
   }, [signer], [] as ActivationFunction[]);
-  
+
   const activationFunctions = _activationFunctions || [];
+
+  const dropDown = <Dropdown
+    selectedFunctionId={selectedFunctionId}
+    setSelectedFunctionId={setSelectedFunctionId}
+    activationFunctions={activationFunctions}
+  />
+
+  const panel = <Panel
+    activating={activating}
+    activationFunctions={activationFunctions}
+    selectedFunctionId={selectedFunctionId}
+    balance={balance}
+  />
+
+  const button = <Button
+    activating={activating}
+    setActivating={setActivating}
+    balance={balance}
+    setBalance={setBalance}
+    selectedFunctionId={selectedFunctionId}
+  />
+
+  return {
+    activationFunctions,
+    setActivating,
+    activating,
+    selectedFunctionId,
+    setSelectedFunctionId,
+    balance,
+    setBalance,
+
+    button,
+    panel,
+    dropDown
+  };
+}
+
+export default function App() {
+  const {
+    activationFunctions,
+    setActivating,
+    activating,
+    selectedFunctionId,
+    setSelectedFunctionId,
+    balance,
+    setBalance,
+
+    button,
+    panel,
+    dropDown
+  } = useActivationFunctions();
 
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="relative flex flex-col items-center justify-between pl-2 pr-2 pt-8 pb-8 border border-black w-64 h-96">
         {activationFunctions.length > 0 && (
           <>
-            {activating != "activating" && (
+            <>
+              {activating != "activating" && (
+                dropDown
+              )}
+              {panel}
+              {button}
+            </>
+            {/* {activating != "activating" && (
               <Dropdown
                 selectedFunctionId={selectedFunctionId}
                 setSelectedFunctionId={setSelectedFunctionId}
@@ -58,8 +116,10 @@ export default function App() {
               balance={balance}
               setBalance={setBalance}
               selectedFunctionId={selectedFunctionId}
-            />
+            /> */}
           </>
+
+
         )}
       </div>
     </div>

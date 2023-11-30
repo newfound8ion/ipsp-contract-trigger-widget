@@ -12,6 +12,9 @@ import {
 } from "../contracts/wattsContract/contract";
 import { getSigner } from "../contracts/ethersProvider";
 import { useAsyncMemo } from "../utils/useAsyncMemo";
+import { PropsWithChildren } from "react";
+
+type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 interface Props {
   activating: string;
@@ -19,6 +22,7 @@ interface Props {
   balance: string;
   setBalance: (balance: string) => void;
   selectedFunctionId: number;
+  render?: (props: ButtonProps) => JSX.Element
 }
 
 export default function Button({
@@ -26,6 +30,7 @@ export default function Button({
   setActivating,
   setBalance,
   selectedFunctionId,
+  render
 }: Props) {
   const signer = useAsyncMemo(getSigner, []);
   if(!signer)
@@ -81,14 +86,15 @@ export default function Button({
     }
   };
 
+  const ButtonComp = render || ((props: ButtonProps) => <button {...props} />);
   return (
-    <button
+    <ButtonComp
       onClick={() => handleClick()}
       className={`py-2 px-4 text-white rounded-full w-40 ${activating === "activating" ? "bg-gray-400" : "bg-black"
         }`}
       disabled={activating === "activating"}
     >
       {activating === "activating" ? "Activating" : "Activate"}
-    </button>
+    </ButtonComp>
   );
 }

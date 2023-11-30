@@ -13,6 +13,8 @@ interface Props {
   activationFunctions: ActivationFunction[];
 }
 
+
+
 export function Panel({
   activating,
   activationFunctions,
