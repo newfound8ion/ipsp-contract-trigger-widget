@@ -41,7 +41,7 @@ export const useButton = ({
       selectedFunctionId, 
       contractType, 
       contractAddress, 
-      params 
+      // params 
     } = args || {};
 
     contractType = contractType || _contractType || "guildAFContract";

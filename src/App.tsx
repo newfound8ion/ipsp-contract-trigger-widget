@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { getSigner } from "./contracts/ethersProvider";
 import { ActivationFunction, Panel } from "./components/Panel";
-import Button, { useButton } from "./components/Button";
+import Button, { useButton } from "./components/Button.tsx";
 import Dropdown from "./components/Dropdown";
 import {
   EncoderContract,
   encoderContract,
 } from "./contracts/EncoderContract/contract";
 import { useAsyncMemo } from "./utils/useAsyncMemo";
+
+export { useButton };
 
 export const useActivationFunctions = (contractAddress?: string) => {
   const [activating, setActivating] = useState("unactivated");

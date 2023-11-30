@@ -1,5 +1,7 @@
 /// <reference types="react" />
 import { ActivationFunction } from "./components/Panel";
+import { useButton } from "./components/Button.tsx";
+export { useButton };
 export declare const useActivationFunctions: (contractAddress?: string) => {
     activate: (args?: {
         selectedFunctionId: number;
