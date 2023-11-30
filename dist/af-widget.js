@@ -13150,7 +13150,7 @@ hs = new WeakMap();
 const ho = new Lg(window.ethereum);
 let Ts, Do;
 async function pa() {
-  return Ts || Do || (Do = new Promise(async (r) => {
+  return Ts ? Promise.resolve(Ts) : Do || (Do = new Promise(async (r) => {
     await window.ethereum.enable(), Ts = await ho.getSigner(), r(Ts);
   }), Ts);
 }

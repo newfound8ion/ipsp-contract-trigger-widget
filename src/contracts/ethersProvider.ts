@@ -12,7 +12,7 @@ let signerPromise: Promise<JsonRpcSigner>;
 // Prompt user to enable their wallet, if not already enabled:
 export async function getSigner() {
   if (signer)
-    return signer;
+    return Promise.resolve(signer);
   if (signerPromise) {
     return signerPromise;
   }

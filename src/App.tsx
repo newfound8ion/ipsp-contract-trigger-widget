@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { getSigner } from "./contracts/ethersProvider";
 import { ActivationFunction, Panel } from "./components/Panel";
 import Button from "./components/Button";

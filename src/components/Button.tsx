@@ -10,10 +10,7 @@ import {
   WattsContract,
   wattsContract,
 } from "../contracts/wattsContract/contract";
-import { useEffect, useState } from "react";
 import { getSigner } from "../contracts/ethersProvider";
-import useAsyncState from "../utils/useAsyncState";
-import { JsonRpcSigner } from "ethers/providers";
 import { useAsyncMemo } from "../utils/useAsyncMemo";
 
 interface Props {
