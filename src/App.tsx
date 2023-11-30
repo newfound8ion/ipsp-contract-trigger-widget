@@ -33,7 +33,7 @@ export const useActivationFunctions = (contractAddress?: string, autoconnect?: b
     setIsConnecting(true);
     const si = await getSigner();
     setIsConnecting(false);
-    setIsConnected(!!signer)
+    setIsConnected(!!si)
     
     return si;
   }, [doConnect, autoconnect]);
