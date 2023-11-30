@@ -1,5 +1,5 @@
 import { ethers, BaseContract, BigNumberish } from "ethers";
-import { getSigner, provider } from "../ethersProvider";
+import { provider } from "../ethersProvider";
 import { contractABI } from "./abi";
 
 const contractAddress = "0xf272Fe62eEdCBCf7221D8451a68a85c3AF4fAcFe";

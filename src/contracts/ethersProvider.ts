@@ -6,7 +6,6 @@ export const provider = new BrowserProvider(window.ethereum);
 // export const signer = await provider.getSigner();
 
 let signer: JsonRpcSigner;
-let resolveSignerPromise: (val: unknown) => void;
 let signerPromise: Promise<JsonRpcSigner>;
 
 // Prompt user to enable their wallet, if not already enabled:

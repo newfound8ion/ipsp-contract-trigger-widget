@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { getSigner, provider } from "../ethersProvider";
+import { provider } from "../ethersProvider";
 import { contractABI } from "./abi";
 import { BaseContract } from "ethers";
 
