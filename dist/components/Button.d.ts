@@ -16,7 +16,7 @@ type ActivateParams = {
     contractAddress: string;
     params: any[];
 };
-export declare const useButton: ({ setActivating, setBalance, selectedFunctionId: _selectedFunctionId, contractType: _contractType, contractAddress: _contractAddress }: Props) => {
+export declare const useButton: ({ setActivating, setBalance, selectedFunctionId: _selectedFunctionId, contractType: _contractType, contractAddress: _contractAddress, }: Props) => {
     activate: (args?: ActivateParams) => Promise<void>;
 };
 export default function Button({ activating, setActivating, setBalance, selectedFunctionId, render, }: Props): import("react/jsx-runtime").JSX.Element;

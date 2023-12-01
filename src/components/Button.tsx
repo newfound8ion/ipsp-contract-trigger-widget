@@ -1,14 +1,23 @@
-
-import { CompatibleContract, ContractType, contractTypes } from "../contracts";
-import { EncoderContract, encoderContract } from "../contracts/EncoderContract/contract";
+import { ContractType } from "../contracts";
+import {
+  EncoderContract,
+  encoderContract,
+} from "../contracts/EncoderContract/contract";
 import { getSigner } from "../contracts/ethersProvider";
-import { GuildGitcoinPassportContract, guildAFContract } from "../contracts/guildAFContract/contract";
-import { WattsContract, wattsContract } from "../contracts/wattsContract/contract";
+import {
+  GuildGitcoinPassportContract,
+  guildAFContract,
+} from "../contracts/guildAFContract/contract";
+import {
+  WattsContract,
+  wattsContract,
+} from "../contracts/wattsContract/contract";
 import { useAsyncMemo } from "../utils/useAsyncMemo";
-import { PropsWithChildren } from "react";
 
-
-type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+type ButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 
 interface Props {
   activating: string;
@@ -16,16 +25,17 @@ interface Props {
   // balance: string;
   setBalance: (balance: string) => void;
   selectedFunctionId?: number;
-  render?: (props: ButtonProps) => JSX.Element
-  contractType?: ContractType
-  contractAddress?: string
+  render?: (props: ButtonProps) => JSX.Element;
+  contractType?: ContractType;
+  contractAddress?: string;
 }
 
-type ActivateParams = { 
-  selectedFunctionId: number, 
-  contractType: ContractType, 
-  contractAddress: string, 
-  params: any[] 
+type ActivateParams = {
+  selectedFunctionId: number;
+  contractType: ContractType;
+  contractAddress: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: any[];
 };
 
 export const useButton = ({
@@ -33,25 +43,30 @@ export const useButton = ({
   setBalance,
   selectedFunctionId: _selectedFunctionId,
   contractType: _contractType,
-  contractAddress: _contractAddress
+  contractAddress: _contractAddress,
 }: Props) => {
   const activate = async (args?: ActivateParams) => {
-  const signer = await getSigner();
-
+    const signer = await getSigner();
     let {
-      selectedFunctionId, 
-      contractType, 
-      contractAddress, 
-      // params 
+      // eslint-disable-next-line prefer-const
+      selectedFunctionId,
+      contractType,
+      contractAddress,
+      // params
     } = args || {};
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     contractType = contractType || _contractType || "guildAFContract";
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     contractAddress = contractAddress || _contractAddress || "";
-    const sfid = typeof selectedFunctionId != "undefined" ? selectedFunctionId : _selectedFunctionId;
+    const sfid =
+      typeof selectedFunctionId != "undefined"
+        ? selectedFunctionId
+        : _selectedFunctionId;
 
     try {
       const guildContractWithSigner = guildAFContract.connect(
-        signer!,
+        signer!
       ) as GuildGitcoinPassportContract;
 
       await guildContractWithSigner.request();
@@ -60,12 +75,11 @@ export const useButton = ({
       setTimeout(async () => {
         try {
           const encoderContractWithSigner = encoderContract.connect(
-            signer!,
+            signer!
           ) as EncoderContract;
 
           // Activating with parameter 0
-          const tx =
-            await encoderContractWithSigner.activate(sfid!);
+          const tx = await encoderContractWithSigner.activate(sfid!);
 
           // Waiting for the transaction to be mined
           await tx.wait();
@@ -100,7 +114,7 @@ export const useButton = ({
     //   // ) as CompatibleContract;
 
     //   //@ts-ignore
-    //   await contractWithSigner.request(); 
+    //   await contractWithSigner.request();
 
     //   // Waiting for 3 seconds after the request before calling activate
     //   setTimeout(async () => {
@@ -127,10 +141,11 @@ export const useButton = ({
 
   // Function to check the balance of Watts
   const checkBalance = async () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const signer = useAsyncMemo(getSigner, []);
 
     const wattsContractWithSigner = wattsContract.connect(
-      signer!,
+      signer!
     ) as WattsContract;
     try {
       const address = await signer!.getAddress();
@@ -144,9 +159,9 @@ export const useButton = ({
   };
 
   return {
-    activate
-  }
-}
+    activate,
+  };
+};
 
 export default function Button({
   activating,
@@ -166,14 +181,14 @@ export default function Button({
 
   const ButtonComp = render || ((props: ButtonProps) => <button {...props} />);
 
-  if (!signer)
-    return <>Wait...</>;
+  if (!signer) return <>Wait...</>;
 
   return (
     <ButtonComp
       onClick={() => activate()}
-      className={`py-2 px-4 text-white rounded-full w-40 ${activating === "activating" ? "bg-gray-400" : "bg-black"
-        }`}
+      className={`py-2 px-4 text-white rounded-full w-40 ${
+        activating === "activating" ? "bg-gray-400" : "bg-black"
+      }`}
       disabled={activating === "activating"}
     >
       {activating === "activating" ? "Activating" : "Activate"}
