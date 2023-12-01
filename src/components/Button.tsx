@@ -36,7 +36,7 @@ export const useButton = ({
   contractAddress: _contractAddress
 }: Props) => {
   const activate = async (args?: ActivateParams) => {
-  const signer = useAsyncMemo(getSigner, []);
+  const signer = await getSigner();
 
     let {
       selectedFunctionId, 
