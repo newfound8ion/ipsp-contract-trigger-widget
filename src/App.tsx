@@ -116,15 +116,19 @@ export default function App() {
     setSelectedFunctionId,
     balance,
     setBalance,
-
+    connect,
     button,
     panel,
-    dropDown
+    dropDown,
+    isConnected
   } = useActivationFunctions("0x84387e3ad062D683BFc7eD2Eeaf2C30B27Bd3d05");
 
   return (
     <div className="min-h-screen flex items-center justify-center">
+
       <div className="relative flex flex-col items-center justify-between pl-2 pr-2 pt-8 pb-8 border border-black w-64 h-96">
+    {!isConnected && <button onClick={() => connect()}>connect</button>}
+<br /><br />
         {activationFunctions.length > 0 && (
           <>
             <>

@@ -34,7 +34,7 @@ function Dropdown({
       </option>
       {activationFunctions.map((func, index) => (
         <option key={func.id} value={index}>
-          {func.context}
+          {func.context} {func.id}
         </option>
       ))}
     </select>

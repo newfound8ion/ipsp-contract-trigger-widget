@@ -35,9 +35,10 @@ export const useButton = ({
   contractType: _contractType,
   contractAddress: _contractAddress
 }: Props) => {
-  const signer = useAsyncMemo(getSigner, []);
   const activate = async (args?: ActivateParams) => {
-    let { 
+  const signer = useAsyncMemo(getSigner, []);
+
+    let {
       selectedFunctionId, 
       contractType, 
       contractAddress, 
@@ -126,6 +127,8 @@ export const useButton = ({
 
   // Function to check the balance of Watts
   const checkBalance = async () => {
+    const signer = useAsyncMemo(getSigner, []);
+
     const wattsContractWithSigner = wattsContract.connect(
       signer!,
     ) as WattsContract;
