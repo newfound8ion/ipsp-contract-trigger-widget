@@ -5,7 +5,7 @@ import Button, { useButton } from "./components/Button.tsx";
 import Dropdown from "./components/Dropdown";
 import {
   EncoderContract,
-  encoderContract,
+  encoderContractFactory,
 } from "./contracts/EncoderContract/contract";
 import { useAsyncMemo } from "./utils/useAsyncMemo";
 
@@ -42,6 +42,7 @@ export const useActivationFunctions = (contractAddress?: string, autoconnect?: b
     if (!signer)
       return;
 
+    const encoderContract = encoderContractFactory();
     const encoderContractWithSigner = encoderContract.connect(
       signer,
     ) as EncoderContract;

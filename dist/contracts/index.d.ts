@@ -7,7 +7,7 @@ export declare const contractTypes: {
         activationMethod: string;
     };
     encoderContract: {
-        factory: (address: string) => import("ethers").Contract;
+        factory: (address?: string | undefined) => import("ethers").Contract;
         activationMethod: string;
     };
     wattsContract: {

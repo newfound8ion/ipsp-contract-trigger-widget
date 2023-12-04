@@ -5,4 +5,4 @@ export interface EncoderContract extends BaseContract {
     getApprovedActivationFunctions(): Promise<ActivationFunction[]>;
 }
 export declare const encoderContract: ethers.Contract;
-export declare const encoderContractFactory: (address: string) => ethers.Contract;
+export declare const encoderContractFactory: (address?: string) => ethers.Contract;
